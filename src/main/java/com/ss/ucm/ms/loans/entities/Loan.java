@@ -3,7 +3,10 @@ package com.ss.ucm.ms.loans.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Objects;
+
+
 
 @Entity
 @Table(name = "loan")
@@ -13,7 +16,7 @@ public class Loan implements Serializable {
     //Data
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     @Column(name = "max_amount")
     private BigDecimal maxAmount;
@@ -23,9 +26,7 @@ public class Loan implements Serializable {
 
     @Column(name = "interest_rate")
     private BigDecimal interestRate;
-
-    //Relationships
-    //None
+    
 
     //Methods
     /**
@@ -46,11 +47,11 @@ public class Loan implements Serializable {
         this.interestRate = interestRate;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
