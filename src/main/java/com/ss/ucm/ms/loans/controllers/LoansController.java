@@ -34,6 +34,7 @@ import com.ss.ucm.ms.loans.services.UserLoanAdd;
 @CrossOrigin
 
 public class LoansController {
+	
     private final LoanSearch loanSearch;
     
     @Autowired
@@ -69,27 +70,11 @@ public class LoansController {
 	 * @return void
 	 * 
 	 */
-    
-    
+     
 	@PostMapping("/loansignup")
 	public void signupLoan(@RequestParam int userId,  @RequestBody RequestLoanSignupDto loanRequest) {
 			
-		Loan loan = new Loan();
-		
-		loan.setMaxAmount(loanRequest.getMaxAmount());
-		loan.setName(loanRequest.getName());
-		loan.setInterestRate(loanRequest.getInterestRate());
-				
-		loanAdd.saveLoan(loan);
-
-		UserLoan userLoan = new UserLoan();
-		userLoan.setLoanId(loanSearch.LoanId(loanRequest.getName()));
-		userLoan.setUserId(userId);
-		userLoan.setBalance(loanRequest.getBalance());
-		userLoan.setDate(loanRequest.getStartDate().now());
-				
-		userLoanAdd.saveUserLoan(userLoan);
-		
+		loanAdd.signUpLoan(userId, loanRequest);
 		
 	}
 }

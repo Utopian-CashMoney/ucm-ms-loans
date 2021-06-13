@@ -11,21 +11,20 @@ import javax.persistence.IdClass;
  * @author Charvin Patel
  */
 
-
-@IdClass(LoanIdUserId.class)
 public class LoanIdUserId implements Serializable {
 
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5129459523588005041L;
 	
-	@Id
 	private int loanId;
 	
-	@Id
 	private int usersId;
+	
+	public LoanIdUserId() {}
+	
+	public LoanIdUserId(int loanId, int usersId) {
+		this.loanId = loanId;
+		this.usersId = usersId;
+	}
 	
 	
 	public int getLoanId() {

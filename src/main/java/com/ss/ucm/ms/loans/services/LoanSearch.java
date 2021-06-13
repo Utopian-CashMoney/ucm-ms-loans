@@ -16,6 +16,7 @@ import com.ss.ucm.ms.loans.entities.Loan;
 @Transactional
 public class LoanSearch {
     private final LoanDAO loanDAO;
+    
     @Autowired
     public LoanSearch(LoanDAO loanDAO) {
         this.loanDAO = loanDAO;

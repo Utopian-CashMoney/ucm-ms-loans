@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 /**
@@ -20,11 +21,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(	name = "user_loan")
+@IdClass(LoanIdUserId.class)
 public class UserLoan implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2662132185650208599L;
     
     @Column(name = "balance")
@@ -32,19 +31,11 @@ public class UserLoan implements Serializable {
     
     @Column(name = "start_date")
 	private LocalDate date;
-
-//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-//	@JoinColumn(name = "loan_id", nullable = false)
-//	private Loan loan;
-//	
-//    
-//	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "users_id", nullable = false)
-//    private User user;
     
     @Id
     private int loanId;
     
+    @Id
     private int usersId;
         
 
@@ -79,25 +70,6 @@ public class UserLoan implements Serializable {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-
-//	public Loan getLoan() {
-//		return loan;
-//	}
-//
-//	public void setLoan(Loan loan) {
-//		this.loan = loan;
-//	}
-//
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
-    
 	
- 
-
     
 }
