@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `users`
     `phone`      VARCHAR(31)  NULL,
     `first_name` VARCHAR(63)  NOT NULL,
     `last_name`  VARCHAR(63)  NOT NULL,
+    `is_active`  BOOLEAN              ,
     PRIMARY KEY (`id`)
 );
 
@@ -218,3 +219,23 @@ CREATE TABLE IF NOT EXISTS `card`
 );
 
 CREATE INDEX `fk_card_user_account1_idx` ON `card` (`account_number` ASC);
+
+-- -----------------------------------------------------
+-- Table `confirm_token`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `confirm_token`
+(
+    `token_id`              INT             NOT NULL AUTO_INCREMENT,
+    `users_id`              INT             NOT NULL,
+    `confirmation_token`    VARCHAR(255)    NOT NULL,
+    `created_date`          DATETIME        NOT NULL,
+    CONSTRAINT `fk_confirm_token_users1`
+        FOREIGN KEY (`users_id`)
+            REFERENCES `users` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+    PRIMARY KEY (`token_id`)
+);
+
+CREATE UNIQUE INDEX `fk_confirm_token_users1_idx` ON `confirm_token` (`users_id` ASC);
