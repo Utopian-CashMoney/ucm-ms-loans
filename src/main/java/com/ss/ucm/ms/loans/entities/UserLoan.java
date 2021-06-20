@@ -26,11 +26,18 @@ public class UserLoan implements Serializable {
 
 	private static final long serialVersionUID = -2662132185650208599L;
     
+    @Column(name = "salary")
+	private int salary;
+    
     @Column(name = "balance")
 	private BigDecimal balance;
     
     @Column(name = "start_date")
 	private LocalDate date;
+    
+    @Column(name = "is_accepted")
+	private Boolean is_accepted;
+    
     
     @Id
     private int loanId;
@@ -38,6 +45,15 @@ public class UserLoan implements Serializable {
     @Id
     private int usersId;
         
+
+    
+	public int getSalary() {
+		return salary;
+	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
 
 	public int getLoanId() {
 		return loanId;
@@ -70,6 +86,16 @@ public class UserLoan implements Serializable {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
+
+	public Boolean getIs_accepted() {
+		return is_accepted;
+	}
+
+	public void setIs_accepted(Boolean is_accepted) {
+		this.is_accepted = is_accepted;
+	}
+	
+	
 	
     
 }

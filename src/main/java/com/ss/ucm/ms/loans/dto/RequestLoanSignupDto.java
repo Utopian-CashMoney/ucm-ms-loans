@@ -18,37 +18,39 @@ public class RequestLoanSignupDto {
 
 	@NotBlank
 	private int id;
-
+	
 	@NotBlank
-	private BigDecimal max_amount;
+	private int salary;
 
 	@NotBlank
 	private String name;
-
-	@NotBlank
-	private BigDecimal interest_rate;
 
 	@NotBlank
 	private BigDecimal balance;
 
 	@NotBlank
 	private LocalDate startDate;
+	
+	@NotBlank
+	private Boolean is_accepted;
+	
+	public RequestLoanSignupDto() {};
 
 
-	RequestLoanSignupDto(BigDecimal max_amount, String name, BigDecimal interest_rate){
-		this.max_amount = max_amount;
+	public RequestLoanSignupDto(String name){
 		this.name = name;
-		this.interest_rate = interest_rate;
+	}
+	
+	
+	public int getSalary() {
+		return salary;
 	}
 
 
-	public BigDecimal getMaxAmount() {
-		return max_amount;
+	public void setSalary(int salary) {
+		this.salary = salary;
 	}
 
-	public void setMaxAmount(BigDecimal max_amount) {
-		this.max_amount = max_amount;
-	}
 
 	public String getName() {
 		return name;
@@ -57,15 +59,6 @@ public class RequestLoanSignupDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public BigDecimal getInterestRate() {
-		return interest_rate;
-	}
-
-	public void setInterestRate(BigDecimal interest_rate) {
-		this.interest_rate = interest_rate;
-	}
-
 
 	public int getId() {
 		return id;
@@ -91,6 +84,16 @@ public class RequestLoanSignupDto {
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
+
+	public Boolean getIs_accepted() {
+		return is_accepted;
+	}
+
+	public void setIs_accepted(Boolean is_accepted) {
+		this.is_accepted = is_accepted;
+	}
+	
+	
 
 
 

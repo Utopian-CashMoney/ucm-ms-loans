@@ -44,8 +44,10 @@ CREATE TABLE IF NOT EXISTS `user_loan`
 (
     `loan_id`    INT            NOT NULL,
     `users_id`   INT            NOT NULL,
+    `salary`		INT					,
     `balance`    DECIMAL(20, 2) NOT NULL,
     `start_date` DATE           NOT NULL,
+    `is_accepted` Boolean				,   
     PRIMARY KEY (`loan_id`, `users_id`),
     CONSTRAINT `fk_loan_has_users_loan1`
         FOREIGN KEY (`loan_id`)

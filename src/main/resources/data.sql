@@ -1,12 +1,12 @@
 ----Users
-INSERT INTO `users` VALUES ( 1, 'john1', 'john@gmail.com', 'Aa1?zzzz', 1222343322, 'john', 'aa',1);
+INSERT INTO `users` VALUES ( 1, 'john1', 'charvinpatel90@gmail.com', 'Aa1?zzzz', 1222343322, 'john', 'aa',1);
 INSERT INTO `users` VALUES ( 2, 'smith2', 'smith@gmail.com', 'Aa1?zzzzz', 1221345322, 'smith', 'bb',1);
 INSERT INTO `users` VALUES ( 3, 'Doe', 'doe@gmail.com', 'Aa1?zzzzzz', 1621345322, 'doe', 'cc',1);
 
 --Loans
-INSERT INTO `loan` VALUES ( 1, 10000.00, 'GENERIC LOAN', 21.11 );
-INSERT INTO `loan` VALUES ( 2, 10.00, 'POINTLESS LOAN', 1.00 );
-INSERT INTO `loan` VALUES ( 3, 420666.69, 'GREEDY LOAN', 129.99 );
+INSERT INTO `loan` VALUES ( 1, 20000000.00, 'Home', 2.5 );
+INSERT INTO `loan` VALUES ( 2, 10000000.00, 'Auto', 3.8 );
+INSERT INTO `loan` VALUES ( 3, 1000000.00, 'Personal', 5.6 );
 
 
 ----Confirm Token
