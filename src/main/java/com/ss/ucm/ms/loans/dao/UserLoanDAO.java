@@ -11,7 +11,6 @@ import com.ss.ucm.ms.loans.entities.UserLoan;
  * 
  * @author Charvin Patel
  */
-
 	
 	@Repository
 	public interface UserLoanDAO extends JpaRepository<UserLoan, Integer> {
