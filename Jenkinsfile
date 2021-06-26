@@ -12,7 +12,7 @@ pipeline {
     stages { 
           stage ('Checkout Git Repo') {
             steps {
-                    git branch: 'CP-H2', url: 'https://github.com/Utopian-CashMoney/ucm-ms-users.git'            
+                    git branch: 'CP-H2', url: 'https://github.com/Utopian-CashMoney/ucm-ms-loans.git'            
             }
         }
 
