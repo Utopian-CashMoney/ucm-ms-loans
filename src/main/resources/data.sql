@@ -1,7 +1,7 @@
 ----Users
-INSERT INTO `users` VALUES ( 1, 'john1', 'charvinpatel90@gmail.com', 'Aa1?zzzz', 1222343322, 'john', 'aa',1);
-INSERT INTO `users` VALUES ( 2, 'smith2', 'smith@gmail.com', 'Aa1?zzzzz', 1221345322, 'smith', 'bb',1);
-INSERT INTO `users` VALUES ( 3, 'Doe', 'doe@gmail.com', 'Aa1?zzzzzz', 1621345322, 'doe', 'cc',1);
+INSERT INTO `users` VALUES ( 1, 'john1', 'charvinpatel90@gmail.com', 'Aa1?zzzz', 1222343322, 'john', 'aa', '1287 S Hampton Ave', 'Clarion', 'LA', '33403', 1);
+INSERT INTO `users` VALUES ( 2, 'smith2', 'smith@gmail.com', 'Aa1?zzzzz', 1221345322, 'smith', 'bb', '6523 N Kornway Rd', 'Ransing', 'MI', '78932', 1);
+INSERT INTO `users` VALUES ( 3, 'Doe', 'doe@gmail.com', 'Aa1?zzzzzz', 1621345322, 'doe', 'cc', '8870 W Sandy Ave', 'WestLake', 'CA', '54709', 1);
 
 --Loans
 INSERT INTO `loan` VALUES ( 1, 20000000.00, 'Home', 2.5 );
