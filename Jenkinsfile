@@ -5,7 +5,7 @@ pipeline {
 	    maven 'Maven 3.8.1' 
 	    jdk 'jdk1.8' 
     }
-	
+  
     environment {
 	    COMMIT_HASH = "${sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()}"
 	    
@@ -15,11 +15,12 @@ pipeline {
 	    
 	    IMG_NAME = "loansms"
     }
+
     
     stages { 
 	      stage ('Checkout Git Repo') {
 	        steps {
-	                git branch: 'master', url: 'https://github.com/Utopian-CashMoney/ucm-ms-loans.git'            
+	                git branch: 'development', url: 'https://github.com/Utopian-CashMoney/ucm-ms-loans.git'            
 	        }
 	    }
 	    
@@ -28,6 +29,9 @@ pipeline {
             steps {
             
                   sh 'mvn clean test'        
+
+                  sh 'mvn test'        
+
             }
         }
 
@@ -76,4 +80,6 @@ pipeline {
 	      sh "docker system prune -f"
 	   }
       }
+}
+    }
 }
