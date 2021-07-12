@@ -12,9 +12,13 @@ CREATE TABLE IF NOT EXISTS `users`
     `username`   VARCHAR(31)  NOT NULL,
     `email`      VARCHAR(127) NOT NULL,
     `password`   VARCHAR(255) NOT NULL,
-    `phone`      VARCHAR(31)  NULL,
+    `phone`      VARCHAR(31)  NOT NULL,
     `first_name` VARCHAR(63)  NOT NULL,
     `last_name`  VARCHAR(63)  NOT NULL,
+    `address`	 VARCHAR(255) NOT NULL,
+    `city`       VARCHAR(127) NOT NULL,
+    `state` 	 VARCHAR(63)  NOT NULL,
+    `zipcode`	 VARCHAR(63)  NOT NULL,
     `is_active`  BOOLEAN              ,
     PRIMARY KEY (`id`)
 );

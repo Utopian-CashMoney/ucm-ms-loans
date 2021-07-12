@@ -1,5 +1,6 @@
 package com.ss.ucm.ms.loans.controllers;
 
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Properties;
 
@@ -96,6 +97,8 @@ public class LoansController {
 	@PostMapping("/loansignup")
 	public ResponseEntity<?>signupLoan(@RequestParam int salary, @RequestParam int amount, @RequestParam int term, @RequestParam double interestRate) {
 
+		DecimalFormat df = new DecimalFormat("###.##");
+		
 		int termInMonths = term * 12;
 
 		ResponseLoanMonthlyPaymentDto loanDto = new ResponseLoanMonthlyPaymentDto();
@@ -105,8 +108,9 @@ public class LoansController {
 
 		double totalPayments = loanAdd.calculateTotalPayment(monthlyPayments, termInMonths);
 
-		loanDto.setPayments(monthlyPayments);
-		loanDto.setTotalPayment(totalPayments);
+		//loanDto.setPayments(monthlyPayments);
+		loanDto.setPayments(Double.valueOf(df.format((monthlyPayments))));
+		loanDto.setTotalPayment(Double.valueOf(df.format((totalPayments))));
 
 		return  ResponseEntity.ok((new ResponseLoanMonthlyPaymentDto(loanDto.getPayments(), 
 				loanDto.getTotalPayment())));
