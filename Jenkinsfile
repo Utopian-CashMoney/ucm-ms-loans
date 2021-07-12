@@ -35,7 +35,7 @@ pipeline {
             }
 	    }
 	    stage('Pushing to ECR') {
-            steps  
+		    steps  {
                 sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 202447729588.dkr.ecr.us-east-2.amazonaws.com'
 		        // Here we are tagging the docker image with the new name which is ECR name and giving the image name which will be stored in ECR   
 		        sh "docker tag ${IMG_NAME}:${COMMIT_HASH} ${registry}:${COMMIT_HASH}"
