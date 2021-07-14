@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
+import com.ss.ucm.ms.loans.dao.LoanDAO;
 import com.ss.ucm.ms.loans.dao.UserDAO;
+import com.ss.ucm.ms.loans.dto.RequestCreateLoanDto;
 import com.ss.ucm.ms.loans.dto.RequestLoanSignupDto;
 import com.ss.ucm.ms.loans.dto.ResponseLoanMonthlyPaymentDto;
 import com.ss.ucm.ms.loans.entities.Loan;
@@ -35,14 +37,12 @@ import com.ss.ucm.ms.loans.services.LoanAdd;
 import com.ss.ucm.ms.loans.services.LoanSearch;
 import com.ss.ucm.ms.loans.services.UserLoanAdd;
 
-
 /**
  * Controller Class for Handling API calls
  * 
  * 
  * @author Charvin Patel
  */
-
 
 @RestController
 @RequestMapping("/loans")
@@ -56,6 +56,9 @@ public class LoansController {
 	LoanAdd loanAdd;
 
 	@Autowired
+	LoanDAO loanDao;
+
+	@Autowired
 	UserLoanAdd userLoanAdd;
 
 	@Autowired
@@ -64,15 +67,14 @@ public class LoansController {
 	@Autowired
 	private SpringTemplateEngine templateEngine;
 
-
 	@Autowired
 	public LoansController(LoanSearch loanSearch) {
 		this.loanSearch = loanSearch;
 	}
 
-
 	/**
 	 * GET /api/loans - Return all loans
+	 * 
 	 * @return First 50 loans
 	 */
 	@GetMapping
@@ -84,41 +86,36 @@ public class LoansController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
 
-	
 	/**
 	 * 
 	 * @param salary(user), amount of loan, loan Term, loan interest rate.
 	 * @return ResponseEntity
 	 * 
 	 */
-	
+
 	@PostMapping("/loansignup")
-	public ResponseEntity<?>signupLoan(@RequestParam int salary, @RequestParam int amount, @RequestParam int term, @RequestParam double interestRate) {
+	public ResponseEntity<?> signupLoan(@RequestParam int salary, @RequestParam int amount, @RequestParam int term,
+			@RequestParam double interestRate) {
 
 		DecimalFormat df = new DecimalFormat("###.##");
-		
+
 		int termInMonths = term * 12;
 
 		ResponseLoanMonthlyPaymentDto loanDto = new ResponseLoanMonthlyPaymentDto();
-
 
 		double monthlyPayments = loanAdd.calculateMonthlyPayments(amount, term, interestRate);
 
 		double totalPayments = loanAdd.calculateTotalPayment(monthlyPayments, termInMonths);
 
-		//loanDto.setPayments(monthlyPayments);
+		// loanDto.setPayments(monthlyPayments);
 		loanDto.setPayments(Double.valueOf(df.format((monthlyPayments))));
 		loanDto.setTotalPayment(Double.valueOf(df.format((totalPayments))));
 
-		return  ResponseEntity.ok((new ResponseLoanMonthlyPaymentDto(loanDto.getPayments(), 
-				loanDto.getTotalPayment())));
+		return ResponseEntity.ok((new ResponseLoanMonthlyPaymentDto(loanDto.getPayments(), loanDto.getTotalPayment())));
 
 	}
 
-	
-	
 	/**
 	 * 
 	 * @param user id, loanrequest
@@ -127,12 +124,12 @@ public class LoansController {
 	 */
 
 	@PostMapping("/loanSignupSuccess")
-	public void signupLoanSuccess(@RequestParam int userId,  @RequestBody RequestLoanSignupDto loanRequest) {
+	public void signupLoanSuccess(@RequestParam int userId, @RequestBody RequestLoanSignupDto loanRequest) {
 
-		//Before setting is_accpeted to true/loan accepeted... we need to 
+		// Before setting is_accpeted to true/loan accepeted... we need to
 		// make sure that our customer makes atleast 50% of what their loan amount is.
 		double acceptableIncome = loanRequest.getBalance().doubleValue() * 0.50;
-		
+
 		User toEmail = userDao.getEmailById(userId);
 
 		String to = toEmail.getEmail();
@@ -148,9 +145,7 @@ public class LoansController {
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", "587");
 
-
-		Session session = Session.getInstance(props,
-				new javax.mail.Authenticator() {
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username, password);
 			}
@@ -158,22 +153,17 @@ public class LoansController {
 
 		Message message = new MimeMessage(session);
 
+		if (loanRequest.getSalary() >= acceptableIncome) {
 
-
-
-		if(loanRequest.getSalary() >= acceptableIncome) {
-			
 			loanAdd.signUpLoan(userId, loanRequest);
 
 			try {
 				message.setFrom(new InternetAddress(from));
 
-				message.setRecipients(Message.RecipientType.TO,
-						InternetAddress.parse(to));
-				
+				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+
 				Context context = new Context();
 				String html = templateEngine.process("../templates/loanAccepted.html", context);
-
 
 				message.setSubject("Loan Application Update!");
 				message.setContent(html, "text/html");
@@ -185,13 +175,11 @@ public class LoansController {
 				e.printStackTrace();
 			}
 
-		}
-		else {
+		} else {
 			try {
 				message.setFrom(new InternetAddress(from));
 
-				message.setRecipients(Message.RecipientType.TO,
-						InternetAddress.parse(to));
+				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
 				Context context = new Context();
 
@@ -200,14 +188,28 @@ public class LoansController {
 				message.setSubject("Loan Application Update!");
 				message.setContent(html, "text/html");
 				Transport.send(message);
-			}
-			catch(Exception e) {
+			} catch (Exception e) {
 
 			}
 
 		}
 
+	}
+	
+	
+	/**
+	 * 
+	 * @param RequestCreateLoanDto
+	 * @return void
+	 * 
+	 */
 
+	
+	@PostMapping("/createLoans")
+	public void createLoans(@RequestBody RequestCreateLoanDto createLoanRequest) {
+
+		loanAdd.createLoan(createLoanRequest);
 
 	}
+
 }
