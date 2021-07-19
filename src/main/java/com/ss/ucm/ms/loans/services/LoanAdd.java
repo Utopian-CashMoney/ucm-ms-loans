@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ss.ucm.ms.loans.dao.LoanDAO;
+import com.ss.ucm.ms.loans.dto.RequestCreateLoanDto;
 import com.ss.ucm.ms.loans.dto.RequestLoanSignupDto;
 import com.ss.ucm.ms.loans.entities.Loan;
 import com.ss.ucm.ms.loans.entities.UserLoan;
@@ -106,6 +107,17 @@ public class LoanAdd {
 
 
 		return totalPayment;
+	}
+	
+	
+	public void createLoan(RequestCreateLoanDto createLoan) {
+		Loan loan = new Loan();
+		
+		loan.setMaxAmount(createLoan.getMax_amount());
+		loan.setName(createLoan.getName());
+		loan.setInterestRate(createLoan.getInterest_rate());
+		
+		loanDAO.save(loan);
 	}
 
 

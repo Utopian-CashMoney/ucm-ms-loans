@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `loan`
     `id`            INT            NOT NULL AUTO_INCREMENT,
     `max_amount`    DECIMAL(20, 2) NOT NULL,
     `name`          VARCHAR(255)   NOT NULL,
-    `interest_rate` DECIMAL(5, 2)  NOT NULL,
+    `interest_rate` DECIMAL(20, 2)  NOT NULL,
     PRIMARY KEY (`id`)
 );
 
