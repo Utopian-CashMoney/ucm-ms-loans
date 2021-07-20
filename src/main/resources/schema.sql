@@ -226,6 +226,22 @@ CREATE TABLE IF NOT EXISTS `card`
 
 CREATE INDEX `fk_card_user_account1_idx` ON `card` (`account_number` ASC);
 
+
+-- -----------------------------------------------------
+-- Table `create_card`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `create_card`
+(
+    `id`             INT         NOT NULL AUTO_INCREMENT,
+   	`ctype`	VARCHAR(255) NOT NULL,	
+    `name`  VARCHAR(255) NOT NULL,
+    `apr`   DECIMAL(20, 2) NOT NULL,
+    `perks` VARCHAR(1200)        NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
+
+
 -- -----------------------------------------------------
 -- Table `confirm_token`
 -- -----------------------------------------------------
