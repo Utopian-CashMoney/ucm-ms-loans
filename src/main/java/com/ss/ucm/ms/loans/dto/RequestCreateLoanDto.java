@@ -4,6 +4,14 @@ import java.math.BigDecimal;
 
 import javax.validation.constraints.NotBlank;
 
+
+/**
+ * RequestCreateLoanDto class needed to store the newely
+ * created loan info to store it in database
+ * 
+ * @author Charvin Patel
+ */
+
 public class RequestCreateLoanDto {
 	
 	@NotBlank

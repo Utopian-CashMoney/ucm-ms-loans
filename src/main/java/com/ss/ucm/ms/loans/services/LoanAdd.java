@@ -117,6 +117,7 @@ public class LoanAdd {
 		loan.setName(createLoan.getName());
 		loan.setInterestRate(createLoan.getInterest_rate());
 		
+		
 		loanDAO.save(loan);
 	}
 
