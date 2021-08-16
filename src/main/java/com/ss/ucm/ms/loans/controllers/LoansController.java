@@ -1,5 +1,6 @@
 package com.ss.ucm.ms.loans.controllers;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Properties;
@@ -26,15 +27,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
-import com.ss.ucm.ms.loans.dao.LoanDAO;
+import com.ss.ucm.ms.loans.dao.UserAccountDAO;
 import com.ss.ucm.ms.loans.dao.UserDAO;
-import com.ss.ucm.ms.loans.dto.RequestCreateLoanDto;
-import com.ss.ucm.ms.loans.dto.RequestLoanSignupDto;
+import com.ss.ucm.ms.loans.dao.UserLoanDAO;
+import com.ss.ucm.ms.loans.dto.RequestAccountTypeDto;
+import com.ss.ucm.ms.loans.dto.RequestUserAccountDto;
+import com.ss.ucm.ms.loans.dto.RequestUserLoanSignupDto;
 import com.ss.ucm.ms.loans.dto.ResponseLoanMonthlyPaymentDto;
-import com.ss.ucm.ms.loans.entities.Loan;
-import com.ss.ucm.ms.loans.entities.User;
-import com.ss.ucm.ms.loans.services.LoanAdd;
+import com.ss.ucm.ms.loans.entities.AccountType;
+import com.ss.ucm.ms.loans.entities.UserAccount;
 import com.ss.ucm.ms.loans.services.LoanSearch;
+import com.ss.ucm.ms.loans.services.LoanTypeAdd;
 import com.ss.ucm.ms.loans.services.UserLoanAdd;
 
 /**
@@ -53,16 +56,26 @@ public class LoansController {
 	private final LoanSearch loanSearch;
 
 	@Autowired
-	LoanAdd loanAdd;
+	LoanTypeAdd loanTypeAdd;
 
-	@Autowired
-	LoanDAO loanDao;
+//	@Autowired
+//	LoanTypeDAO loanTypeDao;
 
 	@Autowired
 	UserLoanAdd userLoanAdd;
 
 	@Autowired
 	UserDAO userDao;
+	
+	@Autowired
+	UserLoanDAO UserLoanDAO;
+	
+	@Autowired
+	UserAccountDAO userAccountDAO;
+	
+	
+	RequestUserAccountDto userAccountDto;
+	
 
 	@Autowired
 	private SpringTemplateEngine templateEngine;
@@ -75,12 +88,15 @@ public class LoansController {
 	/**
 	 * GET /api/loans - Return all loans
 	 * 
-	 * @return First 50 loans
+	 * @return All loans on offer
 	 */
-	@GetMapping
-	public ResponseEntity<Collection<Loan>> get() {
+	
+	
+	// WORKINGGG
+	@GetMapping("/all_loans")
+	public ResponseEntity<Collection<AccountType>> get(@RequestParam String type) {
 		try {
-			Collection<Loan> loans = loanSearch.getFirst50();
+			Collection<AccountType> loans = loanSearch.getLoans(type);
 			return new ResponseEntity<>(loans, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -94,6 +110,9 @@ public class LoansController {
 	 * 
 	 */
 
+	
+	// WORKINGGGGGGGGGG
+	
 	@PostMapping("/loansignup")
 	public ResponseEntity<?> signupLoan(@RequestParam int salary, @RequestParam int amount, @RequestParam int term,
 			@RequestParam double interestRate) {
@@ -104,9 +123,9 @@ public class LoansController {
 
 		ResponseLoanMonthlyPaymentDto loanDto = new ResponseLoanMonthlyPaymentDto();
 
-		double monthlyPayments = loanAdd.calculateMonthlyPayments(amount, term, interestRate);
+		double monthlyPayments = loanTypeAdd.calculateMonthlyPayments(amount, term, interestRate);
 
-		double totalPayments = loanAdd.calculateTotalPayment(monthlyPayments, termInMonths);
+		double totalPayments = loanTypeAdd.calculateTotalPayment(monthlyPayments, termInMonths);
 
 		// loanDto.setPayments(monthlyPayments);
 		loanDto.setPayments(Double.valueOf(df.format((monthlyPayments))));
@@ -122,17 +141,31 @@ public class LoansController {
 	 * @return void
 	 * 
 	 */
+	
+	
+	
+	// WORKINGGGGGG
+	
 
 	@PostMapping("/loanSignupSuccess")
-	public void signupLoanSuccess(@RequestParam int userId, @RequestBody RequestLoanSignupDto loanRequest) {
+	public void signupLoanSuccess(@RequestParam BigDecimal balance,  @RequestBody RequestUserLoanSignupDto loanRequest) {
 
 		// Before setting is_accpeted to true/loan accepeted... we need to
 		// make sure that our customer makes atleast 50% of what their loan amount is.
-		double acceptableIncome = loanRequest.getBalance().doubleValue() * 0.50;
+		//double acceptableIncome = loanRequest.getBalance().doubleValue() * 0.50;
+		
+		double acceptableIncome = balance.doubleValue() * 0.50;
 
-		User toEmail = userDao.getEmailById(userId);
 
-		String to = toEmail.getEmail();
+				
+		
+//		User toEmail = userDao.getEmailById(userAccount_accountNumber);
+		UserAccount userID = userAccountDAO.getUserIDByaccountNumber(loanRequest.getUser_account_account_number());
+
+		System.out.println("HEREEE ID" + userID.getUser().getId());
+		String to = userID.getUser().getEmail();
+		
+//		String to = userID.getEmail();
 		String from = "utopiacashmoney99@gmail.com";
 		final String username = "utopiacashmoney99@gmail.com";
 		final String password = "UtopiaBanking100?";
@@ -155,7 +188,7 @@ public class LoansController {
 
 		if (loanRequest.getSalary() >= acceptableIncome) {
 
-			loanAdd.signUpLoan(userId, loanRequest);
+			loanTypeAdd.signUpLoan(balance, loanRequest);
 
 			try {
 				message.setFrom(new InternetAddress(from));
@@ -205,10 +238,15 @@ public class LoansController {
 	 */
 
 	
+	
+	
+	
+	// WORKINGGGGGGGGGGGGGGG
+	
 	@PostMapping("/createLoans")
-	public void createLoans(@RequestBody RequestCreateLoanDto createLoanRequest) {
+	public void createLoans(@RequestBody RequestAccountTypeDto accountTypeDto) {
 
-		loanAdd.createLoan(createLoanRequest);
+		loanTypeAdd.createLoan(accountTypeDto);
 
 	}
 

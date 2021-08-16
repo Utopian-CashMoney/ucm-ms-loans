@@ -1,29 +1,30 @@
 package com.ss.ucm.ms.loans.services;
 
 import java.util.Collection;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.Repository;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ss.ucm.ms.loans.dao.LoanDAO;
-import com.ss.ucm.ms.loans.entities.Loan;
+import com.ss.ucm.ms.loans.dao.AccountTypeDAO;
+import com.ss.ucm.ms.loans.entities.AccountType;
 
 @Service
 @Transactional
 public class LoanSearch {
-    private final LoanDAO loanDAO;
+//    private final LoanTypeDAO loanTypeDAO;
+	
+    private final AccountTypeDAO accountTypeDao;
     
     @Autowired
-    public LoanSearch(LoanDAO loanDAO) {
-        this.loanDAO = loanDAO;
+    public LoanSearch(AccountTypeDAO accountTypeDao) {
+        this.accountTypeDao = accountTypeDao;
     }
 
-    public Collection<Loan> getFirst50() {
-        return loanDAO.findTop50ByOrderById();
+    public Collection<AccountType> getLoans(String type) {
+    	
+        return accountTypeDao.getLoans(type);
     }
     
     
@@ -33,8 +34,8 @@ public class LoanSearch {
 	 * @return user_id(int)
 	 * 
 	 */
-    public int LoanId(String name) {
-    	 return loanDAO.getIdByName(name);
-    }
+//    public int LoanId(String name) {
+//    	 return loanTypeDAO.getIdByName(name);
+//    }
     
 }

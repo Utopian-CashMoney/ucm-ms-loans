@@ -18,35 +18,31 @@ import javax.persistence.Table;
  */
 
 
-
 @Entity
 @Table(	name = "user_loan")
-@IdClass(LoanIdUserId.class)
+//@IdClass(LoanTypeIdUserId.class)
 public class UserLoan implements Serializable {
 
 	private static final long serialVersionUID = -2662132185650208599L;
-    
+	
     @Column(name = "salary")
 	private int salary;
     
-    @Column(name = "balance")
-	private BigDecimal balance;
-    
+//    @Column(name = "balance")
+//	private BigDecimal balance;
+//    
     @Column(name = "start_date")
 	private LocalDate date;
     
     @Column(name = "is_accepted")
 	private Boolean is_accepted;
-    
+     
+//    @Id
+//    private int loanTypeId;
     
     @Id
-    private int loanId;
-    
-    @Id
-    private int usersId;
-        
+    private String userAccount_accountNumber;
 
-    
 	public int getSalary() {
 		return salary;
 	}
@@ -55,29 +51,13 @@ public class UserLoan implements Serializable {
 		this.salary = salary;
 	}
 
-	public int getLoanId() {
-		return loanId;
-	}
-
-	public void setLoanId(int loanId) {
-		this.loanId = loanId;
-	}
-
-	public int getUserId() {
-		return usersId;
-	}
-
-	public void setUserId(int usersId) {
-		this.usersId = usersId;
-	}
-
-	public BigDecimal getBalance() {
-		return balance;
-	}
-
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
-	}
+//	public BigDecimal getBalance() {
+//		return balance;
+//	}
+//
+//	public void setBalance(BigDecimal balance) {
+//		this.balance = balance;
+//	}
 
 	public LocalDate getDate() {
 		return date;
@@ -94,8 +74,23 @@ public class UserLoan implements Serializable {
 	public void setIs_accepted(Boolean is_accepted) {
 		this.is_accepted = is_accepted;
 	}
-	
-	
-	
+
+//	public int getLoanTypeId() {
+//		return loanTypeId;
+//	}
+//
+//	public void setLoanTypeId(int loanTypeId) {
+//		this.loanTypeId = loanTypeId;
+//	}
+
+	public String getUserAccount_accountNumber() {
+		return userAccount_accountNumber;
+	}
+
+	public void setUserAccount_accountNumber(String userAccount_accountNumber) {
+		this.userAccount_accountNumber = userAccount_accountNumber;
+	}
+
+    
     
 }
