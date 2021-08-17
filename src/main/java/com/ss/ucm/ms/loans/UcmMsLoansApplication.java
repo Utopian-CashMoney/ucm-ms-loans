@@ -13,8 +13,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
  */
 
 // TODO: Configure Spring Security later. Disabled until relevant.
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-//@SpringBootApplication
+//@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@SpringBootApplication
 public class UcmMsLoansApplication {
 
     public static void main(String[] args) {
