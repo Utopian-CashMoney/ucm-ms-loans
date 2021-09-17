@@ -1,5 +1,7 @@
 package com.ss.ucm.ms.loans.entities;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -23,7 +26,7 @@ import javax.validation.constraints.Size;
 
 
 @Entity
-@Table(	name = "users", 
+@Table(	name = "user", 
 		uniqueConstraints = { 
 			@UniqueConstraint(columnNames = "username"),
 			@UniqueConstraint(columnNames = "email") 
@@ -66,8 +69,8 @@ public class User {
 	
 	@NotBlank
 	@Size(max = 255)
-	@Column(name = "address")
-	private String address;
+	@Column(name = "street")
+	private String street;
 	
 	@NotBlank
 	@Size(max = 127)
@@ -88,9 +91,12 @@ public class User {
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private ConfirmToken confirmToken;
+    
+    @OneToMany(targetEntity=UserAccount.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)   
+    private Set<UserAccount> userAccounts;
    
     
-	
+	@Column(name = "is_active")
     private Boolean isActive;
 
 	public Boolean getisActive() {
@@ -110,14 +116,14 @@ public class User {
 	}
 
 	public User(String username, String email, String password, String phNum, String firstName, String lastName, 
-			String address, String city, String state, String zipcode, Boolean isActive) {
+			String street, String city, String state, String zipcode, boolean isActive) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.phNum = phNum;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.address = address;
+		this.street = street;
 		this.city = city;
 		this.state = state;
 		this.zipcode = zipcode;
@@ -182,12 +188,12 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getStreet() {
+		return street;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
 	public String getCity() {
@@ -218,16 +224,16 @@ public class User {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((isActive == null) ? 0 : isActive.hashCode());
+		result = prime * result + (isActive ? 1231 : 1237);
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phNum == null) ? 0 : phNum.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((street == null) ? 0 : street.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
 		return result;
@@ -242,11 +248,6 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
 		if (city == null) {
 			if (other.city != null)
 				return false;
@@ -264,10 +265,7 @@ public class User {
 			return false;
 		if (id != other.id)
 			return false;
-		if (isActive == null) {
-			if (other.isActive != null)
-				return false;
-		} else if (!isActive.equals(other.isActive))
+		if (isActive != other.isActive)
 			return false;
 		if (lastName == null) {
 			if (other.lastName != null)
@@ -289,6 +287,11 @@ public class User {
 				return false;
 		} else if (!state.equals(other.state))
 			return false;
+		if (street == null) {
+			if (other.street != null)
+				return false;
+		} else if (!street.equals(other.street))
+			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
@@ -301,6 +304,8 @@ public class User {
 			return false;
 		return true;
 	}
+
+	
 	
 	
 
