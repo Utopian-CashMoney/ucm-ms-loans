@@ -17,7 +17,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
+
 
 @Entity
 @Table(	name = "account_type")
@@ -55,6 +57,7 @@ public class AccountType {
 	private String perks;
 	
 	@OneToMany(mappedBy="account_type")
+    @JsonBackReference
 	private Set<UserAccount> UserAccount;
 
 	public int getId() {

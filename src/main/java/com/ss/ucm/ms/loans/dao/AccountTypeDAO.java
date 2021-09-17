@@ -15,5 +15,9 @@ public interface AccountTypeDAO extends JpaRepository<AccountType, Integer>{
 	
 	 @Query(value = "SELECT * FROM account_type WHERE type = :type", nativeQuery = true)
 	public Collection<AccountType> getLoans(String type);
+	 
+	 
+	public AccountType getIdByName(String name);
+
 	
 }

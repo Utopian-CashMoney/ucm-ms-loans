@@ -59,29 +59,16 @@ public class LoanTypeAdd {
 	 * @return void
 	 * 
 	 */
-	public void signUpLoan(BigDecimal balance, RequestUserLoanSignupDto loanTypeRequest) {
+	public void signUpLoan(BigDecimal balance, String account_number, RequestUserLoanSignupDto loanTypeRequest) {
 
-		UserLoan userLoan = new UserLoan();
-		UserAccount userAccount = new UserAccount();
-		
-//		userLoan.setLoanTypeId(loanSearch.LoanId(loanTypeRequest.getName()));
-//		userLoan.setUserAccount_accountNumber(userAccount_accountNumber);
-//		userLoan.setSalary(loanTypeRequest.getSalary());
-//		userAccount.setBalance(balance);
-//		userLoan.setDate(loanTypeRequest.getStartDate().now());
-//		userLoan.setIs_accepted(true);
-//
-//		userLoanAdd.saveUserLoan(userLoan);
-		
-//		userLoan.setUserAccount_accountNumber(loanTypeRequest.getUser_account_account_number());
-//		userLoan.setSalary(loanTypeRequest.getSalary());
-//		userAccount.setBalance(balance);
-//		userLoan.setDate(loanTypeRequest.getStartDate().now());
-//		userLoan.setIs_accepted(true);
-		
-//		System.out.println("Values here........" + loanTypeRequest.getUser_account_account_number() + loanTypeRequest.getSalary() + loanTypeRequest.getStartDate().now() + true + loanTypeRequest.getTerm());
+		if(loanTypeRequest.getIs_accepted() == true) {
+			
+			userLoanAdd.saveUserLoan(account_number, loanTypeRequest.getSalary(), loanTypeRequest.getStart_date().now(), true, loanTypeRequest.getTerm());
 
-		userLoanAdd.saveUserLoan(loanTypeRequest.getUser_account_account_number(), loanTypeRequest.getSalary(), loanTypeRequest.getStart_date().now(), true, loanTypeRequest.getTerm());
+		}
+		else {
+		userLoanAdd.saveUserLoan(account_number, loanTypeRequest.getSalary(), loanTypeRequest.getStart_date().now(), false, loanTypeRequest.getTerm());
+		}
 	}
 
 

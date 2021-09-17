@@ -1,14 +1,21 @@
 package com.ss.ucm.ms.loans.entities;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Entity Class for user_loan table
@@ -18,30 +25,40 @@ import javax.persistence.Table;
  */
 
 
+
 @Entity
 @Table(	name = "user_loan")
-//@IdClass(LoanTypeIdUserId.class)
-public class UserLoan implements Serializable {
-
-	private static final long serialVersionUID = -2662132185650208599L;
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "user_loan_id")
+public class UserLoan {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	int user_loan_id;
 	
     @Column(name = "salary")
 	private int salary;
-    
-//    @Column(name = "balance")
-//	private BigDecimal balance;
-//    
+        
     @Column(name = "start_date")
-	private LocalDate date;
+	private LocalDate startDate;
     
     @Column(name = "is_accepted")
-	private Boolean is_accepted;
-     
-//    @Id
-//    private int loanTypeId;
+	private Boolean isAccepted;
     
-    @Id
-    private String userAccount_accountNumber;
+    @Column(name="term")
+    private String term;
+    
+    @Column(name = "status")
+    private String status;
+    
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="account_number")
+    @JsonBackReference
+   // @JsonManagedReference
+    UserAccount user_account;
+    
+    
 
 	public int getSalary() {
 		return salary;
@@ -51,46 +68,60 @@ public class UserLoan implements Serializable {
 		this.salary = salary;
 	}
 
-//	public BigDecimal getBalance() {
-//		return balance;
-//	}
-//
-//	public void setBalance(BigDecimal balance) {
-//		this.balance = balance;
-//	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
 	}
 
-	public Boolean getIs_accepted() {
-		return is_accepted;
+	public Boolean getIsAccepted() {
+		return isAccepted;
 	}
 
-	public void setIs_accepted(Boolean is_accepted) {
-		this.is_accepted = is_accepted;
+	public void setIsAccepted(Boolean isAccepted) {
+		this.isAccepted = isAccepted;
 	}
 
-//	public int getLoanTypeId() {
-//		return loanTypeId;
-//	}
-//
-//	public void setLoanTypeId(int loanTypeId) {
-//		this.loanTypeId = loanTypeId;
-//	}
-
-	public String getUserAccount_accountNumber() {
-		return userAccount_accountNumber;
+	public int getUser_loan_id() {
+		return user_loan_id;
 	}
 
-	public void setUserAccount_accountNumber(String userAccount_accountNumber) {
-		this.userAccount_accountNumber = userAccount_accountNumber;
+	public void setUser_loan_id(int user_loan_id) {
+		this.user_loan_id = user_loan_id;
 	}
 
-    
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+	
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public UserAccount getUser_account() {
+		return user_account;
+	}
+
+	public void setUser_account(UserAccount user_account) {
+		this.user_account = user_account;
+	}
+	
+	
+	
+	
+
     
 }

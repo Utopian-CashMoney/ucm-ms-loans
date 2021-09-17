@@ -24,7 +24,12 @@ public class RequestUserLoanSignupDto {
 	private String term;
 	
 	@NotBlank
-	private String user_account_account_number;
+	private String name;
+	
+	
+	@NotBlank
+	private BigDecimal balance;
+	
 
 	public int getId() {
 		return id;
@@ -68,13 +73,24 @@ public class RequestUserLoanSignupDto {
 		this.term = term;
 	}
 
-	public String getUser_account_account_number() {
-		return user_account_account_number;
+
+	public BigDecimal getBalance() {
+		return balance;
 	}
 
-	public void setUser_account_account_number(String user_account_account_number) {
-		this.user_account_account_number = user_account_account_number;
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 
 	
 	
