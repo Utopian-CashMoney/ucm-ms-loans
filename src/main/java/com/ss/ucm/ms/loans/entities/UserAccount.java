@@ -71,6 +71,7 @@ public class UserAccount {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 
 	public AccountType getAccount_type() {
 		return account_type;
@@ -79,8 +80,6 @@ public class UserAccount {
 	public void setAccount_type(AccountType account_type) {
 		this.account_type = account_type;
 	}
-	
-	
 
 	public BigDecimal getBalance() {
 		return balance;
@@ -146,11 +145,6 @@ public class UserAccount {
 			return false;
 		return true;
 	}
-
-
-	
-    
-    
     
 	
 
