@@ -13,11 +13,11 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 // TODO: Configure Spring Security later. Disabled until relevant.
 
-//remove this
- @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })// Original just commenting to troubleshoot "health" actuator
+// Original just commenting to troubleshoot "health" actuator
+// @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 
-//add this for temporary solve health file issue 
-//@SpringBootApplication
+// add this for temporary solve health file issue
+@SpringBootApplication
 public class UcmMsLoansApplication {
 
     public static void main(String[] args) {
