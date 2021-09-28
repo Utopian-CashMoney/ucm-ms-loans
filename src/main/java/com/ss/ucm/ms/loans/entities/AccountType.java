@@ -3,61 +3,54 @@ package com.ss.ucm.ms.loans.entities;
 import java.math.BigDecimal;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
-
 
 @Entity
-@Table(	name = "account_type")
+@Table(name = "account_type")
 public class AccountType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@NotBlank
 	@Column(name = "name")
 	private String name;
-	
+
 	@NotBlank
 	@Column(name = "type")
-    String type;
-	
+	String type;
+
 	@NotBlank
 	@Column(name = "allow_credit")
 	private boolean allow_credit;
-	
+
 	@NotBlank
 	@Column(name = "credit_limit")
 	private BigDecimal credit_limit;
-	
+
 	@NotBlank
 	@Column(name = "allow_cards")
 	private boolean allow_cards;
-	
+
 	@NotBlank
 	@Column(name = "apr")
 	private BigDecimal apr;
-	
+
 	@Column(name = "perks")
 	private String perks;
-	
-	@OneToMany(mappedBy="account_type")
-    @JsonBackReference
+
+	@OneToMany(mappedBy = "account_type")
+	@JsonBackReference
 	private Set<UserAccount> user_account;
 
 	public int getId() {
@@ -76,7 +69,6 @@ public class AccountType {
 		this.name = name;
 	}
 
-	
 	public String getType() {
 		return type;
 	}
@@ -85,16 +77,13 @@ public class AccountType {
 		this.type = type;
 	}
 
-//	public Set<UserAccount> getUserAccount() {
-//		return UserAccount;
-//	}
-//
-//	public void setUserAccount(Set<UserAccount> userAccount) {
-//		UserAccount = userAccount;
-//	}
-	
-	
-
+	// public Set<UserAccount> getUserAccount() {
+	// return UserAccount;
+	// }
+	//
+	// public void setUserAccount(Set<UserAccount> userAccount) {
+	// UserAccount = userAccount;
+	// }
 
 	public boolean isAllow_credit() {
 		return allow_credit;
@@ -112,8 +101,6 @@ public class AccountType {
 		this.allow_credit = allow_credit;
 	}
 
-
-
 	public BigDecimal getCredit_limit() {
 		return credit_limit;
 	}
@@ -121,9 +108,6 @@ public class AccountType {
 	public void setCredit_limit(BigDecimal credit_limit) {
 		this.credit_limit = credit_limit;
 	}
-
-
-	
 
 	public boolean isAllow_cards() {
 		return allow_cards;
@@ -213,11 +197,4 @@ public class AccountType {
 		return true;
 	}
 
-	
-	
-	
-	
-	
-	
-	
 }
