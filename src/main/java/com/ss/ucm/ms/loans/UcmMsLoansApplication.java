@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-
 /**
  * Main Application
  * 
@@ -13,8 +12,12 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
  */
 
 // TODO: Configure Spring Security later. Disabled until relevant.
-//@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-@SpringBootApplication
+
+//remove this
+ @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })// Original just commenting to troubleshoot "health" actuator
+
+//add this for temporary solve health file issue 
+//@SpringBootApplication
 public class UcmMsLoansApplication {
 
     public static void main(String[] args) {

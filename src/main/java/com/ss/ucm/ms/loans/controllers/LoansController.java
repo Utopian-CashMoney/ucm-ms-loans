@@ -191,7 +191,10 @@ public class LoansController {
 				UserAccount userAccount = new UserAccount();
 				userAccount.setAccountNumber(String.valueOf(accountNumber));
 				userAccount.setUser(user);
-				userAccount.setAccount_type(accountTypeDAO.getIdByName(loanRequest.getName()));
+			//	userAccount.setAccount_type(accountTypeDAO.getIdByName(loanRequest.getName()));
+				
+				userAccount.setAccount_type(accountTypeDAO.getAccountTypeByName(loanRequest.getName()));
+
 				userAccount.setBalance(loanRequest.getBalance());
 
 				userAccountDAO.save(userAccount);
@@ -202,7 +205,7 @@ public class LoansController {
 				// Mocking a delay for 10s when a loan manager tries to review the loan
 				// application
 				// and makes the decision, but these delays the navigation to next webpage
-				Thread.sleep(10 * 1000);
+				//Thread.sleep(10 * 1000);
 
 				UserLoan userLoan = new UserLoan();
 				userLoan.setStatus("IN REVIEW");
@@ -211,7 +214,7 @@ public class LoansController {
 				// Mocking a delay for 10s when a loan manager tries to review the loan
 				// application
 				// and makes the decision, but these delays the navigation to next webpage
-				Thread.sleep(10 * 1000);
+			    // Thread.sleep(10 * 1000);
 				userLoan.setStatus("APPROVED");
 				userLoanDAO.updateStatusByUserAccount(String.valueOf(accountNumber), userLoan.getStatus());
 
@@ -248,14 +251,14 @@ public class LoansController {
 				// Mocking a delay for 10s when a loan manager tries to review the loan
 				// application
 				// and makes the decision, but these delays the navigation to next webpage
-				Thread.sleep(10 * 1000);
+				//Thread.sleep(10 * 1000);
 				userLoan.setStatus("IN REVIEW");
 				userLoanDAO.updateStatusByUserAccount(String.valueOf(accountNumber), userLoan.getStatus());
 				
 				// Mocking a delay for 10s when a loan manager tries to review the loan
 				// application
 				// and makes the decision, but these delays the navigation to next webpage
-				Thread.sleep(10 * 1000);
+				//Thread.sleep(10 * 1000);
 				userLoan.setStatus("DECLINED");
 				userLoanDAO.updateStatusByUserAccount(String.valueOf(accountNumber), userLoan.getStatus());
 

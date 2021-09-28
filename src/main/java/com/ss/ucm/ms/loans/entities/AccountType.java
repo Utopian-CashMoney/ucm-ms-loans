@@ -58,7 +58,7 @@ public class AccountType {
 	
 	@OneToMany(mappedBy="account_type")
     @JsonBackReference
-	private Set<UserAccount> UserAccount;
+	private Set<UserAccount> user_account;
 
 	public int getId() {
 		return id;
@@ -85,17 +85,27 @@ public class AccountType {
 		this.type = type;
 	}
 
-	public Set<UserAccount> getUserAccount() {
-		return UserAccount;
-	}
-
-	public void setUserAccount(Set<UserAccount> userAccount) {
-		UserAccount = userAccount;
-	}
+//	public Set<UserAccount> getUserAccount() {
+//		return UserAccount;
+//	}
+//
+//	public void setUserAccount(Set<UserAccount> userAccount) {
+//		UserAccount = userAccount;
+//	}
+	
+	
 
 
 	public boolean isAllow_credit() {
 		return allow_credit;
+	}
+
+	public Set<UserAccount> getUser_account() {
+		return user_account;
+	}
+
+	public void setUser_account(Set<UserAccount> user_account) {
+		this.user_account = user_account;
 	}
 
 	public void setAllow_credit(boolean allow_credit) {
@@ -143,7 +153,6 @@ public class AccountType {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((UserAccount == null) ? 0 : UserAccount.hashCode());
 		result = prime * result + (allow_cards ? 1231 : 1237);
 		result = prime * result + (allow_credit ? 1231 : 1237);
 		result = prime * result + ((apr == null) ? 0 : apr.hashCode());
@@ -152,6 +161,7 @@ public class AccountType {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((perks == null) ? 0 : perks.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((user_account == null) ? 0 : user_account.hashCode());
 		return result;
 	}
 
@@ -164,11 +174,6 @@ public class AccountType {
 		if (getClass() != obj.getClass())
 			return false;
 		AccountType other = (AccountType) obj;
-		if (UserAccount == null) {
-			if (other.UserAccount != null)
-				return false;
-		} else if (!UserAccount.equals(other.UserAccount))
-			return false;
 		if (allow_cards != other.allow_cards)
 			return false;
 		if (allow_credit != other.allow_credit)
@@ -200,9 +205,16 @@ public class AccountType {
 				return false;
 		} else if (!type.equals(other.type))
 			return false;
+		if (user_account == null) {
+			if (other.user_account != null)
+				return false;
+		} else if (!user_account.equals(other.user_account))
+			return false;
 		return true;
 	}
 
+	
+	
 	
 	
 	

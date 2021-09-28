@@ -17,7 +17,9 @@ public interface AccountTypeDAO extends JpaRepository<AccountType, Integer>{
 	public Collection<AccountType> getLoans(String type);
 	 
 	 
-	public AccountType getIdByName(String name);
+	//public AccountType getIdByName(String name);
+	 
+	 public AccountType getAccountTypeByName(String name);
 
 	
 }
