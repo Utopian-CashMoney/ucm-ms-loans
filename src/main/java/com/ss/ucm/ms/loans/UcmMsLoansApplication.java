@@ -15,10 +15,10 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 // remove this
 // Original just commenting to troubleshoot "health" actuator
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+//@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 
 // add this for temporary solve health file issue
-//@SpringBootApplication
+@SpringBootApplication
 public class UcmMsLoansApplication {
 
     public static void main(String[] args) {
