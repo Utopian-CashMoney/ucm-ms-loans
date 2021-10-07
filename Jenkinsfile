@@ -10,7 +10,7 @@ pipeline {
     
     NAME = 'loans-ms' 
     AWS_REGION = 'us-east-2'
-    GIT_COMMIT = env.GIT_COMMIT
+    GIT_COMMIT = '${env.GIT_COMMIT}'
 
     }
     
