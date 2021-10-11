@@ -58,7 +58,7 @@ pipeline {
     	stage('Push to ECR') {
     	
     		  steps {
-                withAWS(credentials: 'jenkins-credentials', region: '${AWS_REGION}') {
+                withAWS(credentials: 'jenkins-credentials', region: 'us-east-1') {
                     /*
                      * Pull account ID from jenkins-credentials AWS profile
                      * Login to AWS ECR for private repo access
