@@ -47,15 +47,15 @@ pipeline {
                     sh "docker push ${aws_account_id}.dkr.ecr.${AWS_REGION}.amazonaws.com/${NAME}:latest"
                 }
             }
-        }
+    	  }
     }
-
-	post {
-		always {
-            // Cleanup, unused docker images are large
-            sh 'mvn clean'
-            sh 'docker system prune -f'
-            cleanWs()
+  
+	  post {
+		  always {
+          // Cleanup, unused docker images are large
+          sh 'mvn clean'
+          sh 'docker system prune -f'
+          cleanWs()
 		}
 	}
 }
